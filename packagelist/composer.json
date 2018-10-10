@@ -1,0 +1,17 @@
+{
+    "name": "ftp/wps",
+    "description": "fpt wps",
+    "type": "metapackage",
+    "license": "fpt(ups)2018",
+    "authors": [
+        {
+            "name": "tran thin",
+            "email": "tvt.thin.it@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "gabrielbull/ups-api": "0.8.0",
+        "smarty/smarty": "v3.1.33"
+    }
+}
