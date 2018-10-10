@@ -1,4 +1,4 @@
-<form id="Login" action="/wp-admin/admin.php?page=woo-fpt-ups&controller=Merchant_CF_Country">
+<form id="Login" action="/wp-admin/admin.php?page=woo-fpt-ups&controller=merchantCF_Country">
     <legend><span>Contry Setting</span></legend>
     <table class="form-table">
         <tr valign="top">

@@ -13,14 +13,14 @@ namespace wooFptUps\utils;
  *
  * @author ThinTV
  */
-class UPS_PM
+class upsPm
 {
 
-    function UPS_PM_Login() {
+    function upsPmLogin() {
         $wooFptUpsSmarty = new \wooFptUps\utils\wooFptUpsSmarty();
         $smarty = $wooFptUpsSmarty->getSmarty();
         $smarty->assign('data', "this is test");
-        return $smarty->fetch("admin/UPS_PM/UPS_PM_Login.tpl");
+        return $smarty->fetch("admin/ups-pm/login.tpl");
     }
 
 }

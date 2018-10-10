@@ -23,71 +23,75 @@ class Controller
     }
 
     public function admin() {
-        add_menu_page('woo-fpt-ups', 'Woo ups', 'manage_options', str_replace(' ', '-', 'woo-fpt-ups'), [$this, '_display']);
-        add_submenu_page('woo-fpt-ups', 'Merchant_CF', 'Merchant_CF', 'manage_options', str_replace(' ', '-', 'woo-fpt-ups-merchantcf'), [$this, '_displayMerchant_CF']);
-        add_submenu_page('woo-fpt-ups', 'UPS_PM', 'UPS_PM', 'manage_options', str_replace(' ', '-', 'woo-fpt-ups-ups-pm'), [$this, '_displayUPS_PM']);
+        add_menu_page('woo-fpt-ups', 'Woo ups', 'manage_options', str_replace(' ', '-', 'woo-fpt-ups'), [$this, 'display']);
+        add_submenu_page('woo-fpt-ups', 'merchantCF', 'merchantCF', 'manage_options', str_replace(' ', '-', 'woo-fpt-ups-merchantcf'), [$this, 'displayMerchantCf']);
+        add_submenu_page('woo-fpt-ups', 'UPS_PM', 'UPS_PM', 'manage_options', str_replace(' ', '-', 'woo-fpt-ups-ups-pm'), [$this, 'displayUpsPm']);
     }
 
-    function _displayUPS_PM() {
-        $controller = strip_tags(empty($_REQUEST["controller"]) ? "" : $_REQUEST["controller"]);
+    function displayUpsPm() {
+        $controller = trim(strip_tags(empty($_REQUEST["controller"]) ? "" : $_REQUEST["controller"]));
         switch ($controller) {
             case "ajaxJson":
                 ob_end_clean();
                 $ajaxJson = new \wooFptUps\utils\ajaxJson();
                 echo json_encode($ajaxJson->getData());
                 exit;
-            case "UPS_PM_Login":
-                $UPS_PM = new \wooFptUps\utils\UPS_PM();
-                echo $UPS_PM->UPS_PM_Login();
+            case "ups-pm-login":
+                $upsPm = new \wooFptUps\utils\upsPm();
+                echo $upsPm->upsPmLogin();
                 return;
             default:
                 return $this->_default();
         }
     }
 
-    function _displayMerchant_CF() {
-        $controller = strip_tags(empty($_REQUEST["controller"]) ? "" : $_REQUEST["controller"]);
+    function displayMerchantCf() {
+        $controller = trim(strip_tags(empty($_REQUEST["controller"]) ? "" : $_REQUEST["controller"]));
         switch ($controller) {
             case "ajaxJson":
                 ob_end_clean();
                 $ajaxJson = new \wooFptUps\utils\ajaxJson();
                 echo json_encode($ajaxJson->getData());
                 exit;
-            case "Merchant_CF_Country":
-                $Merchant_CF = new \wooFptUps\utils\Merchant_CF();
-                echo $Merchant_CF->Merchant_CF_Country();
+            case "merchant-cf-country":
+                $merchantCF = new \wooFptUps\utils\merchantCF();
+                echo $merchantCF->merchantCfCountry();
                 return;
-            case "Merchant_CF_TermsConditions":
-                $Merchant_CF = new \wooFptUps\utils\Merchant_CF();
-                echo $Merchant_CF->Merchant_CF_TermsConditions();
+            case "merchant-cf-terms-conditions":
+                $merchantCF = new \wooFptUps\utils\merchantCF();
+                echo $merchantCF->merchantCfTermsConditions();
                 return;
-            case "Merchant_CF_Account":
-                $Merchant_CF = new \wooFptUps\utils\Merchant_CF();
-                echo $Merchant_CF->Merchant_CF_Account();
+            case "merchant-cf-account":
+                $merchantCF = new \wooFptUps\utils\merchantCF();
+                echo $merchantCF->merchantCfAccount();
                 return;
-            case "Merchant_CF_ShippingServices":
-                $Merchant_CF = new \wooFptUps\utils\Merchant_CF();
-                echo $Merchant_CF->Merchant_CF_ShippingServices();
+            case "merchant-cf-shipping-services":
+                $merchantCF = new \wooFptUps\utils\merchantCF();
+                echo $merchantCF->merchantCfShippingServices();
                 return;
-            case "Merchant_CF_COD":
-                $Merchant_CF = new \wooFptUps\utils\Merchant_CF();
-                echo $Merchant_CF->Merchant_CF_COD();
+            case "merchant-cf-cod":
+                $merchantCF = new \wooFptUps\utils\merchantCF();
+                echo $merchantCF->merchantCfCod();
                 return;
 
-            case "Merchant_CF_Accessorials":
-                $Merchant_CF = new \wooFptUps\utils\Merchant_CF();
-                echo $Merchant_CF->Merchant_CF_Accessorials();
+            case "merchant-cf-accessorials":
+                $merchantCF = new \wooFptUps\utils\merchantCF();
+                echo $merchantCF->merchantCfAccessorials();
                 return;
-            case "Merchant_CF_PackageDimensions":
-                $Merchant_CF = new \wooFptUps\utils\Merchant_CF();
-                echo $Merchant_CF->Merchant_CF_PackageDimensions();
+            case "merchant-cf-package-dimensions":
+                $merchantCF = new \wooFptUps\utils\merchantCF();
+                echo $merchantCF->merchantCfPackageDimensions();
                 return;
             default:
                 return $this->_default();
         }
     }
 
-    function _display() {
+    function _default() {
+        $this->display();
+    }
+
+    function display() {
         $wooFptUpsSmarty = new \wooFptUps\utils\wooFptUpsSmarty();
         $smarty = $wooFptUpsSmarty->getSmarty();
         echo $smarty->fetch("admin/default.tpl");
