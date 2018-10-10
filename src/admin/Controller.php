@@ -24,19 +24,28 @@ class Controller
 
     public function admin() {
         add_menu_page('woo-fpt-ups', 'Woo ups', 'manage_options', str_replace(' ', '-', 'woo-fpt-ups'), [$this, '_display']);
-        add_submenu_page('woo-fpt-ups', 'Page sub', 'Page sub', 'manage_options', str_replace(' ', '-', 'woo-fpt-ups-sub'), [$this, '_displaySub']);
-        add_submenu_page('woo-fpt-ups', 'Page sub2', 'Page sub2', 'manage_options', str_replace(' ', '-', 'woo-fpt-ups-sub2'), [$this, '_displaySub']);
+        add_submenu_page('woo-fpt-ups', 'Merchant_CF', 'Merchant_CF', 'manage_options', str_replace(' ', '-', 'woo-fpt-ups-merchantcf'), [$this, '_displayMerchant_CF']);
+        add_submenu_page('woo-fpt-ups', 'UPS_PM', 'UPS_PM', 'manage_options', str_replace(' ', '-', 'woo-fpt-ups-ups-pm'), [$this, '_displayUPS_PM']);
     }
 
-    function _displaySub() {
-        $wooFptUpsSmarty = new \wooFptUps\utils\wooFptUpsSmarty();
-        $smarty = $wooFptUpsSmarty->getSmarty();
-        $smarty->assign('data', "this is test");
-        echo $smarty->fetch("admin/sub.tpl");
-        return;
+    function _displayUPS_PM() {
+        $controller = strip_tags(empty($_REQUEST["controller"]) ? "" : $_REQUEST["controller"]);
+        switch ($controller) {
+            case "ajaxJson":
+                ob_end_clean();
+                $ajaxJson = new \wooFptUps\utils\ajaxJson();
+                echo json_encode($ajaxJson->getData());
+                exit;
+            case "UPS_PM_Login":
+                $UPS_PM = new \wooFptUps\utils\UPS_PM();
+                echo $UPS_PM->UPS_PM_Login();
+                return;
+            default:
+                return $this->_default();
+        }
     }
 
-    function _display() {
+    function _displayMerchant_CF() {
         $controller = strip_tags(empty($_REQUEST["controller"]) ? "" : $_REQUEST["controller"]);
         switch ($controller) {
             case "ajaxJson":
@@ -78,7 +87,7 @@ class Controller
         }
     }
 
-    private function _default() {
+    function _display() {
         $wooFptUpsSmarty = new \wooFptUps\utils\wooFptUpsSmarty();
         $smarty = $wooFptUpsSmarty->getSmarty();
         echo $smarty->fetch("admin/default.tpl");

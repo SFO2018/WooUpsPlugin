@@ -15,5 +15,12 @@ namespace wooFptUps\utils;
  */
 class UPS_PM
 {
-    //put your code here
+
+    function UPS_PM_Login() {
+        $wooFptUpsSmarty = new \wooFptUps\utils\wooFptUpsSmarty();
+        $smarty = $wooFptUpsSmarty->getSmarty();
+        $smarty->assign('data', "this is test");
+        return $smarty->fetch("admin/UPS_PM/UPS_PM_Login.tpl");
+    }
+
 }
