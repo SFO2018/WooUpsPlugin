@@ -81,7 +81,6 @@ class Controller
     private function _default() {
         $wooFptUpsSmarty = new \wooFptUps\utils\wooFptUpsSmarty();
         $smarty = $wooFptUpsSmarty->getSmarty();
-        $smarty->assign('data', "this is test");
         echo $smarty->fetch("admin/default.tpl");
         return;
     }
